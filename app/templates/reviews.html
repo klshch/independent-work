@@ -1,0 +1,37 @@
+{% from 'render_field.html' import render_field %}
+{% extends "base.html" %}
+
+{% block title %} Форма {% endblock %}
+
+{% block content %}
+
+<h1>Reviews page</h1>
+<br>
+<div class="d-flex justify-content-center align-items-center">
+    <div class="mt-4">
+        <form action={{url_for("reviews")}}  method="POST" novalidate>
+            {{ reviews.csrf_token }}
+            {{ render_field(reviews.name)}}
+            {{ render_field(reviews.content)}}
+            <br>
+            <br>
+            {{reviews.submit_feedback()}}
+        </form>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<h2>Залишені відгуки:</h2>
+<br>
+<ul>
+    {% for entry in feedback_entries %}
+        <li>{{ entry.name }}: {{ entry.content }}</li>
+    {% endfor %}
+</ul>
+<br>
+<br>
+<br>
+<i>я не використовувала міграції тому що відразу створила потрібну собі базу данних і так як вона у мене перша, міграція не стала б в пригоді</i>
+<i>(використаю міграції в лабораторній №6)</i>
+{% endblock %}
